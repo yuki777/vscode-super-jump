@@ -36,14 +36,10 @@
                 "shellscript"
               ],
               "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
+              "searchFileName": "$2",
               "searchDirectories": [
                 "src/Resource/App"
-              ],
-              "searchFileName": "$2",
-              "searchFileNameConvertRules": [
-                "pascalCase"
-              ],
-              "searchFileExtension": ".php"
+              ]
             },
             {
               "targetLanguages": [
@@ -52,17 +48,17 @@
                 "shellscript"
               ],
               "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
+              "searchFileName": "$2",
+              "searchFileNameConvertRules": [
+                "pascalCase"
+              ],
+              "searchFileExtension": ".php",
               "searchDirectories": [
                 "src/Resource/Page",
                 "src/Resource/Page/Admin",
                 "src/Resource/Page/Cli",
                 "src/Resource/Page/Content"
-              ],
-              "searchFileName": "$2",
-              "searchFileNameConvertRules": [
-                "pascalCase"
-              ],
-              "searchFileExtension": ".php"
+              ]
             }
           ],
           "items": {
