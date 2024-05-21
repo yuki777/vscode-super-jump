@@ -1,89 +1,62 @@
 import * as vscode from 'vscode';
+import * as caseAnything from 'case-anything';
 
 export default class PeekFileDefinitionProvider implements vscode.DefinitionProvider {
-  targetFileExtensions: string[] = [];
-  resourceAppPaths: string[] = [];
-  resourcePagePaths: string[] = [];
-
-  // TODO: 設定から取得する
-  public static readonly regexPattern = /(get|post|put|delete|resource|uri|ResourceParam|Embed)\(.*?(app|page):\/\/self\/(.*)['"]/;
-
-  constructor(targetFileExtensions: string[] = [], resourceAppPaths: string[] = [], resourcePagePaths: string[] = []) {
-    this.targetFileExtensions = targetFileExtensions;
-    this.resourceAppPaths = resourceAppPaths;
-    this.resourcePagePaths = resourcePagePaths;
-  }
-
-  getResourceNameAndMethod(document: vscode.TextDocument, position: vscode.Position): any[] {
-    const range = document.getWordRangeAtPosition(position, PeekFileDefinitionProvider.regexPattern);
-    if (range === undefined) { return []; }
-
-    const selectedText = document.getText(range);
-    const resourceParts = selectedText.match(PeekFileDefinitionProvider.regexPattern);
-    if (resourceParts === null) { return []; }
-  
-    // TODO: メソッドへのジャンプは不要
-    const method = "on" + resourceParts[1].charAt(0).toUpperCase() + resourceParts[1].slice(1);
-    // TODO: app or pageなどは正規表現で判断するので不要 
-    const appOrPage = resourceParts[2];
-    // TODO: QueryStringや不要文字も正規表現で削除するので不要
-    const cutted = resourceParts[3].split(/'|"|#|\?|\{/)[0];
-    // TODO: 設定から判断して処理する
-    const upperd = cutted.split("/").map(x => x.charAt(0).toUpperCase() + x.slice(1)).join("/");
-    // TODO: 設定から判断して処理する
-    const filePart = upperd.split("-").map(x => x.charAt(0).toUpperCase() + x.slice(1)).join("");
-
-    let file = '';
-    const possibleFileNames: any[] = [];
-    if (appOrPage === 'app') {
-      this.resourceAppPaths.forEach((resourceAppPath) => {
-        this.targetFileExtensions.forEach((ext) => {
-          file = resourceAppPath + "/" + filePart;
-          possibleFileNames.push({
-            file : file + ext,
-            method : method
-          });
-        });
-      });
-    }
-    // TODO: app or pageなどは正規表現で判断するので条件分岐は不要 
-    else {
-      this.resourcePagePaths.forEach((resourcePagePath) => {
-        this.targetFileExtensions.forEach((ext) => {
-          file = resourcePagePath + "/" + filePart;
-          possibleFileNames.push({
-            file : file + ext,
-            method : method
-          });
-          possibleFileNames.push({
-            file : file + '/Index' + ext,
-            method : method
-          });
-        });
-      });
-    }
-
-    return possibleFileNames;
-  }
-
-  searchFilePath(fileName: String): Thenable<vscode.Uri[]> {
-    return vscode.workspace.findFiles(`**/${fileName}`, "**/vendor"); // Returns promise
+  public static userConfigs: vscode.WorkspaceConfiguration;
+  constructor(userConfigs: vscode.WorkspaceConfiguration) {
+    PeekFileDefinitionProvider.userConfigs = userConfigs;
   }
 
   async provideDefinition(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken): Promise<any[] | vscode.Location | vscode.Location[] | undefined> {
-    const resourceNameAndMethods = this.getResourceNameAndMethod(document, position);
-    if(resourceNameAndMethods.length === 0) {return [];}
+    const targetFiles: string[] = [];
+    PeekFileDefinitionProvider.userConfigs.forEach((config: any) => {
+      // range取得
+      const range = document.getWordRangeAtPosition(position, config.regex);
+      if (range === undefined){
+        return;
+      }
 
-    const searchPathActions = resourceNameAndMethods.map(async resourceNameAndMethod => {
-      const files = await this.searchFilePath(resourceNameAndMethod.file);
+      // テキスト取得
+      const selectedText = document.getText(range);
+      const matchedParts = selectedText.match(config.regex);
+      if (matchedParts === null) {
+        return;
+      }
+
+      // キャプチャ変数の処理
+      let searchFileName = config.searchFileName;
+      searchFileName = searchFileName.replace(/(\$\d)/g, (match: string, p1: string) => {
+        return matchedParts[parseInt(p1[1])];
+      });
+
+      // ファイル名の変換
+      let processedFileName = searchFileName;
+      config.searchFileNameConvertRules.forEach((rule: string) => {
+        // TODO: if文を削除して、rule から動的に関数を呼び出したい caseAnything.$rule()
+        if(rule === 'pascalCase'){
+          processedFileName = caseAnything.pascalCase(processedFileName, {keep: ['/']});
+       }
+      });
+
+      // 検索対象ファイルリストに追加
+      config.searchDirectories.forEach((searchDirectory: string) => {
+        targetFiles.push(searchDirectory + "/" + processedFileName + config.searchFileExtension);
+      });
+    });
+
+    if (targetFiles.length === 0) {
+      return [];
+    }
+
+    const searchPathActions = targetFiles.map(async targetFile => {
+      const files = await this.searchFilePath(targetFile);
       return files.map(file => {
         return {
           file: file,
-          method: resourceNameAndMethod.method
         };
       });
     });
-    const searchPromises = Promise.all(searchPathActions); // pass array of promises
+    const searchPromises = Promise.all(searchPathActions);
     const paths = await searchPromises;
 
     // @ts-ignore
@@ -94,24 +67,14 @@ export default class PeekFileDefinitionProvider implements vscode.DefinitionProv
 
     const allPaths: any[] = [];
     for (const filePath of filePaths) {
-      const document = await vscode.workspace.openTextDocument(filePath.file.path);
-      const methodRegex = new RegExp(`\\bfunction\\s+${filePath.method}\\s*\\(`);
-      let found = false;
-      for (let line = 0; line < document.lineCount; line++) {
-          const lineText = document.lineAt(line).text;
-          if (methodRegex.test(lineText)) {
-              // メソッドが見つかった場合
-              allPaths.push(new vscode.Location(vscode.Uri.file(filePath.file.path), new vscode.Position(line, 0)));
-              found = true;
-              break;
-          }
-      }
-      if (!found) {
-          // メソッドが見つからなかった場合
-          allPaths.push(new vscode.Location(vscode.Uri.file(filePath.file.path), new vscode.Position(0, 0)));
-      }
+      allPaths.push(new vscode.Location(vscode.Uri.file(filePath.file.path), new vscode.Position(0, 0)));
     }
 
     return allPaths;
   }
+
+  searchFilePath(fileName: String): Thenable<vscode.Uri[]> {
+    return vscode.workspace.findFiles(`**/${fileName}`, "**/{vendor,node_modules}"); // Returns promise
+  }
+
 }
