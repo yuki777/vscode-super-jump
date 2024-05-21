@@ -7,7 +7,7 @@
     "url": "https://github.com/yuki777/vscode-super-jump"
   },
   "description": "Jump to Definition.",
-  "version": "1.18.0",
+  "version": "0.1.0",
   "engines": {
     "node": "20.*",
     "npm": "10.*",
@@ -69,51 +69,6 @@
             "type": "object"
           },
           "description": "A list of config object"
-        },
-        "vscode-super-jump.supportedLanguages": {
-          "type": "array",
-          "default": [
-            "php",
-            "twig"
-          ],
-          "items": {
-            "type": "string"
-          },
-          "description": "A list of vscode language names where the extension should be used."
-        },
-        "vscode-super-jump.targetFileExtensions": {
-          "type": "array",
-          "default": [
-            ".php",
-            ".twig"
-          ],
-          "items": {
-            "type": "string"
-          },
-          "description": "list of extensions that should be tried for finding peeked files. These are tried in order as further extensions of the potential file name and also as alternative file endings instead of the existing file extension (if available)"
-        },
-        "vscode-super-jump.resourceAppPaths": {
-          "type": "array",
-          "default": [
-            "src/Resource/App"
-          ],
-          "items": {
-            "type": "string"
-          },
-          "description": "App resource path list to be searched."
-        },
-        "vscode-super-jump.resourcePagePaths": {
-          "type": "array",
-          "default": [
-            "src/Resource/Page",
-            "src/Resource/Page/Admin",
-            "src/Resource/Page/Cli",
-            "src/Resource/Page/Content"
-          ],
-          "items": {
-            "type": "string"
-          },
-          "description": "Page resource path list to be searched."
         }
       }
     }
