@@ -19,44 +19,36 @@
       "twig",
       "shellscript"
     ],
-    "targetExtensions": [
-      ".php",
-      ".twig",
-      ".sh",
-      ".bash"
-    ],
-    "regex": "/(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/(.*)['\"]/",
+    "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
     "searchDirectories": [
       "src/Resource/App"
     ],
-    "searchFileName": "$2.php",
-    "searchFileNameConvertCamelCase": true,
-    "searchFileNameConvertSnakelCase": false,
-    "searchFileNameConvertDashToSlash": true
+    "searchFileName": "$2",
+    "searchFileNameConvertRules": [
+      "pascalCase"
+    ],
+    "searchFileExtension": ".php"
   },
   {
     "targetLanguages": [
       "php",
       "twig",
-      "shellscript"
+      "shellscript",
+      "go",
+      "python"
     ],
-    "targetExtensions": [
-      ".php",
-      ".twig",
-      ".sh",
-      ".bash"
-    ],
-    "regex": "/(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/(.*)['\"]/",
+    "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
     "searchDirectories": [
       "src/Resource/Page",
       "src/Resource/Page/Admin",
       "src/Resource/Page/Cli",
       "src/Resource/Page/Content"
     ],
-    "searchFileName": "$2.php",
-    "searchFileNameConvertCamelCase": true,
-    "searchFileNameConvertSnakelCase": false,
-    "searchFileNameConvertDashToSlash": true
+    "searchFileName": "$2",
+    "searchFileNameConvertRules": [
+      "pascalCase"
+    ],
+    "searchFileExtension": ".php"
   }
 ]
 ```
