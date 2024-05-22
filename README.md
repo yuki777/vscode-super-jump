@@ -12,52 +12,52 @@
 | 項目                        | 説明                                      |
 |-----------------------------|-------------------------------------------|
 | targetLanguages             | 拡張を使用するプログラミング言語          |
-| regex                       | ジャンプ発動させたいテキストに対応する正規表現 |
+| regex                       | ジャンプ発動させたいテキストに対応する正規表現 (`"`と`\`はエスケープが必要です) |
 | searchFileName              | マッチした正規表現のキャプチャ変数        |
-| searchFileNameConvertRules  | マッチしたテキストをフォーマットするルール (option) |
-| searchFileExtension         | 検索対象ファイルの拡張子 (option)                  |
+| searchFileNameConvertRules  | マッチしたテキストをフォーマットするルール  |
+| searchFileExtension         | 検索対象ファイルの拡張子                 |
 | searchDirectories           | ファイルを検索するディレクトリ            |
 
 ## 設定サンプル
+- settings.json
 ```json
-[
-  {
-    "targetLanguages": [
-      "php",
-      "twig",
-      "shellscript"
-    ],
-    "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
-    "searchFileName": "$2",
-    "searchFileNameConvertRules": [
-      "pascalCase"
-    ],
-    "searchFileExtension": ".php",
-    "searchDirectories": [
-      "src/Resource/App"
-    ],
-  },
-  {
-    "targetLanguages": [
-      "php",
-      "twig",
-      "shellscript",
-      "go",
-      "python"
-    ],
-    "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
-    "searchFileName": "$2",
-    "searchFileNameConvertRules": [
-      "pascalCase"
-    ],
-    "searchFileExtension": ".php",
-    "searchDirectories": [
-      "src/Resource/Page",
-      "src/Resource/Page/Admin",
-      "src/Resource/Page/Cli",
-      "src/Resource/Page/Content"
+{
+    "vscode-super-jump.configs": [
+        {
+            "targetLanguages": [
+                "php",
+                "twig",
+                "shellscript"
+            ],
+            "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
+            "searchDirectories": [
+                "src/Resource/App"
+            ],
+            "searchFileName": "$2",
+            "searchFileNameConvertRules": [
+                "pascalCase"
+            ],
+            "searchFileExtension": ".php"
+        },
+        {
+            "targetLanguages": [
+                "php",
+                "twig",
+                "shellscript"
+            ],
+            "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
+            "searchDirectories": [
+                "src/Resource/Page",
+                "src/Resource/Page/Admin",
+                "src/Resource/Page/Cli",
+                "src/Resource/Page/Content"
+            ],
+            "searchFileName": "$2",
+            "searchFileNameConvertRules": [
+                "pascalCase"
+            ],
+            "searchFileExtension": ".php"
+        }
     ]
-  }
-]
+}
 ```
-
