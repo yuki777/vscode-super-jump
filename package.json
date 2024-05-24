@@ -37,9 +37,13 @@
               ],
               "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
               "searchFileName": "$2",
+              "searchFileNameConvertRules": [
+                "pascalCase"
+              ],
               "searchDirectories": [
                 "src/Resource/App"
-              ]
+              ],
+              "searchFileExtension": ".php"
             },
             {
               "targetLanguages": [
@@ -52,13 +56,13 @@
               "searchFileNameConvertRules": [
                 "pascalCase"
               ],
-              "searchFileExtension": ".php",
               "searchDirectories": [
                 "src/Resource/Page",
                 "src/Resource/Page/Admin",
                 "src/Resource/Page/Cli",
                 "src/Resource/Page/Content"
-              ]
+              ],
+              "searchFileExtension": ".php"
             }
           ],
           "items": {
@@ -76,8 +80,7 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "lint:fix": "eslint --fix src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "test:regex": "node ./src/test/regexTest.js"
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
