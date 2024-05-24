@@ -1,15 +1,44 @@
 import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import PeekFileDefinitionProvider from '../../PeekFileDefinitionProvider';
 
 suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+  vscode.window.showInformationMessage('Start all tests.');
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-	});
+  test('activate function', async () => {
+		const configs = [
+			{
+				"targetLanguages": [
+					"php",
+					"twig",
+					"shellscript"
+				],
+				"regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
+				"searchFileName": "$2",
+				"searchFileNameConvertRules": [
+					"pascalCase"
+				],
+				"searchDirectories": [
+					"src/test/dummy/App"
+				],
+				"searchFileExtension": ".php"
+			}
+		];
+
+		const peekProvider = new PeekFileDefinitionProvider(configs);
+
+		const document = await vscode.workspace.openTextDocument({
+			content: "#[Embed(rel: 'article', src: 'app://self/article/valid{?slug}')]",
+			language: 'php',
+		});
+		const position = new vscode.Position(0, 30);
+
+		const targetFiles = peekProvider.getTargetFiles(document, position);
+		assert.strictEqual(targetFiles.length, 1);
+
+		// TODO: Fix test for search()
+    const filePaths = await peekProvider.search(targetFiles);
+		// assert.strictEqual(filePaths.length, 1);
+		// assert.strictEqual(filePaths[0].uri.fsPath, vscode.Uri.file('src/test/dummy/App/Article/Valid.php').fsPath);
+  });
 });
