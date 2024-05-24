@@ -64,7 +64,7 @@ export default class PeekFileDefinitionProvider implements vscode.DefinitionProv
   applyConvertRules(fileName: string, rules: string[]): string {
     let processedFileName = fileName;
     rules.forEach((rule: string) => {
-      if (rule === 'pascalCase') {processedFileName = caseAnything.pascalCase(processedFileName, { keep: ['/'] });}
+      if (rule === 'pascalCase') { processedFileName = caseAnything.pascalCase(processedFileName, { keep: ['/'] }); }
     });
 
     return processedFileName;
