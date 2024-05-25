@@ -41,11 +41,21 @@ suite('Extension Test Suite', () => {
           "src/Resource/Page/Content"
         ],
         "searchFileExtension": ".php"
+      },
+      {
+        "targetLanguages": ["php"],
+        "regex": "#\\[JsonSchema\\(schema:\\s?'([^']*)'.*?\\)\\]",
+        "searchFileName": "$1",
+        "searchDirectories": ["var/json_schema"]
       }
     ];
+    // #[JsonSchema(schema: 'foo.json', key: 'foo')]
+    // #[JsonSchema(schema: 'foo.post.json', params: 'foo.post.json')]
+    // #[JsonSchema(schema: 'foo.get.json')]
     const provider = new PeekFileDefinitionProvider(configs);
     assert(provider instanceof PeekFileDefinitionProvider, 'provider should be an instance of PeekFileDefinitionProvider');
 
+    // Test 'app'
     let testText = "$this->resource->get('app://self/Article/Valid?foo=FOO');";
     let cursorPosition = 25;
     let expectTargetFile = ["src/Resource/App/Article/Valid.php"];
@@ -54,14 +64,29 @@ suite('Extension Test Suite', () => {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
     } as vscode.TextDocument;
+
     let targetFiles = provider.getTargetFiles(document, new vscode.Position(0, 0));
     assert.strictEqual(targetFiles.length, expectCount);
     assert.deepStrictEqual(targetFiles, expectTargetFile);
 
+    // Test 'page'
     testText = "$this->resource->get('page://self/Article/Valid?foo=FOO');";
     cursorPosition = 25;
     expectTargetFile = ["src/Resource/Page/Article/Valid.php", "src/Resource/Page/Admin/Article/Valid.php", "src/Resource/Page/Cli/Article/Valid.php", "src/Resource/Page/Content/Article/Valid.php"];
     expectCount = 4;
+    document = {
+      getText: (range: vscode.Range) => testText,
+      getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
+    } as vscode.TextDocument;
+    targetFiles = provider.getTargetFiles(document, new vscode.Position(0, 0));
+    assert.strictEqual(targetFiles.length, expectCount);
+    assert.deepStrictEqual(targetFiles, expectTargetFile);
+
+    // Test JsonSchema
+    testText = "#[JsonSchema(schema: 'foo.get.json', key: 'announcement', params: 'foo.get.json')]";
+    cursorPosition = 23;
+    expectTargetFile = ["var/json_schema/foo.get.json"];
+    expectCount = 1;
     document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
