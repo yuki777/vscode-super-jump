@@ -64,7 +64,21 @@ export default class PeekFileDefinitionProvider implements vscode.DefinitionProv
   applyConvertRules(fileName: string, rules: string[]): string {
     let processedFileName = fileName;
     rules.forEach((rule: string) => {
+      if (rule === 'adaCase') { processedFileName = caseAnything.adaCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'camelCase') { processedFileName = caseAnything.camelCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'capitalCase') { processedFileName = caseAnything.capitalCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'cobolCase') { processedFileName = caseAnything.cobolCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'constantCase') { processedFileName = caseAnything.constantCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'dotNotation') { processedFileName = caseAnything.dotNotation(processedFileName, { keep: ['/'] }); }
+      if (rule === 'kebabCase') { processedFileName = caseAnything.kebabCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'lowerCase') { processedFileName = caseAnything.lowerCase(processedFileName, { keep: ['/'] }); }
       if (rule === 'pascalCase') { processedFileName = caseAnything.pascalCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'pathCase') { processedFileName = caseAnything.pathCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'snakeCase') { processedFileName = caseAnything.snakeCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'spaceCase') { processedFileName = caseAnything.spaceCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'trainCase') { processedFileName = caseAnything.trainCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'upperCamelCase') { processedFileName = caseAnything.upperCamelCase(processedFileName, { keep: ['/'] }); }
+      if (rule === 'upperCase') { processedFileName = caseAnything.upperCase(processedFileName, { keep: ['/'] }); }
     });
 
     return processedFileName;
