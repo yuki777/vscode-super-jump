@@ -63,6 +63,16 @@
                 "src/Resource/Page/Content"
               ],
               "searchFileExtension": ".php"
+            },
+            {
+              "targetLanguages": [
+                "php"
+              ],
+              "regex": "#\\[JsonSchema\\(schema:\\s?'([^']*)'.*?\\)\\]",
+              "searchFileName": "$1",
+              "searchDirectories": [
+                "var/json_schema"
+              ]
             }
           ],
           "items": {

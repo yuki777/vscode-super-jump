@@ -51,10 +51,10 @@ export default class PeekFileDefinitionProvider implements vscode.DefinitionProv
         return matchedParts[parseInt(p1[1])];
       });
 
-      let processedFileName = this.applyConvertRules(searchFileName, config.searchFileNameConvertRules);
+      let processedFileName = this.applyConvertRules(searchFileName, config.searchFileNameConvertRules || []);
 
       config.searchDirectories.forEach((searchDirectory: string) => {
-        targetFiles.push(searchDirectory + "/" + processedFileName + config.searchFileExtension);
+        targetFiles.push(`${searchDirectory}/${processedFileName}${config.searchFileExtension || ''}`);
       });
     });
 
