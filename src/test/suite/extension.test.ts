@@ -44,14 +44,17 @@ suite('Extension Test Suite', () => {
       },
       {
         "targetLanguages": ["php"],
-        "regex": "#\\[JsonSchema\\(schema:\\s?'([^']*)'.*?\\)\\]",
+        "regex": "#\\[JsonSchema\\(.*?schema\\s?:\\s?'([^']*)'.*?\\)\\]",
         "searchFileName": "$1",
         "searchDirectories": ["var/json_schema"]
-      }
+      },
+      {
+        "targetLanguages": ["php"],
+        "regex": "#\\[JsonSchema\\(.*?params\\s?:\\s?'([^']*)'.*?\\)\\]",
+        "searchFileName": "$1",
+        "searchDirectories": ["var/json_validate"]
+      },
     ];
-    // #[JsonSchema(schema: 'foo.json', key: 'foo')]
-    // #[JsonSchema(schema: 'foo.post.json', params: 'foo.post.json')]
-    // #[JsonSchema(schema: 'foo.get.json')]
     const provider = new PeekFileDefinitionProvider(configs);
     assert(provider instanceof PeekFileDefinitionProvider, 'provider should be an instance of PeekFileDefinitionProvider');
 
@@ -83,10 +86,13 @@ suite('Extension Test Suite', () => {
     assert.deepStrictEqual(targetFiles, expectTargetFile);
 
     // Test JsonSchema
-    testText = "#[JsonSchema(schema: 'foo.get.json', key: 'announcement', params: 'foo.get.json')]";
+    testText = "#[JsonSchema(schema: 'foo.get.json', key: 'announcement', params: 'bar.get.json')]";
     cursorPosition = 23;
-    expectTargetFile = ["var/json_schema/foo.get.json"];
-    expectCount = 1;
+    expectTargetFile = [
+      "var/json_schema/foo.get.json",
+      "var/json_validate/bar.get.json",
+    ];
+    expectCount = 2;
     document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))

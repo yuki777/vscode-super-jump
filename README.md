@@ -18,46 +18,84 @@
 | searchFileExtension         | 検索対象ファイルの拡張子                 |
 | searchDirectories           | ファイルを検索するディレクトリ            |
 
+## `searchFileNameConvertRules`
+- [case-anything](https://www.npmjs.com/package/case-anything)を使用し、下記をサポートしています
+- adaCase
+- camelCase
+- capitalCase
+- cobolCase
+- constantCase
+- dotNotation
+- kebabCase
+- lowerCase
+- pascalCase
+- pathCase
+- snakeCase
+- spaceCase
+- trainCase
+- upperCamelCase
+- upperCase
+
 ## 設定サンプル
 - settings.json
 ```json
 {
     "vscode-super-jump.configs": [
-        {
-            "targetLanguages": [
+            {
+              "targetLanguages": [
                 "php",
                 "twig",
                 "shellscript"
-            ],
-            "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
-            "searchDirectories": [
-                "src/Resource/App"
-            ],
-            "searchFileName": "$2",
-            "searchFileNameConvertRules": [
+              ],
+              "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
+              "searchFileName": "$2",
+              "searchFileNameConvertRules": [
                 "pascalCase"
-            ],
-            "searchFileExtension": ".php"
-        },
-        {
-            "targetLanguages": [
+              ],
+              "searchDirectories": [
+                "src/Resource/App"
+              ],
+              "searchFileExtension": ".php"
+            },
+            {
+              "targetLanguages": [
                 "php",
                 "twig",
                 "shellscript"
-            ],
-            "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
-            "searchDirectories": [
+              ],
+              "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
+              "searchFileName": "$2",
+              "searchFileNameConvertRules": [
+                "pascalCase"
+              ],
+              "searchDirectories": [
                 "src/Resource/Page",
                 "src/Resource/Page/Admin",
                 "src/Resource/Page/Cli",
                 "src/Resource/Page/Content"
-            ],
-            "searchFileName": "$2",
-            "searchFileNameConvertRules": [
-                "pascalCase"
-            ],
-            "searchFileExtension": ".php"
-        }
+              ],
+              "searchFileExtension": ".php"
+            },
+            {
+              "targetLanguages": [
+                "php"
+              ],
+              "regex": "#\\[JsonSchema\\(.*?schema\\s?:\\s?'([^']*)'.*?\\)\\]",
+              "searchFileName": "$1",
+              "searchDirectories": [
+                "var/json_schema"
+              ]
+            },
+            {
+              "targetLanguages": [
+                "php"
+              ],
+              "regex": "#\\[JsonSchema\\(.*?params\\s?:\\s?'([^']*)'.*?\\)\\]",
+              "searchFileName": "$1",
+              "searchDirectories": [
+                "var/json_validate"
+              ]
+            }
     ]
 }
 ```

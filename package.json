@@ -68,10 +68,20 @@
               "targetLanguages": [
                 "php"
               ],
-              "regex": "#\\[JsonSchema\\(schema:\\s?'([^']*)'.*?\\)\\]",
+              "regex": "#\\[JsonSchema\\(.*?schema\\s?:\\s?'([^']*)'.*?\\)\\]",
               "searchFileName": "$1",
               "searchDirectories": [
                 "var/json_schema"
+              ]
+            },
+            {
+              "targetLanguages": [
+                "php"
+              ],
+              "regex": "#\\[JsonSchema\\(.*?params\\s?:\\s?'([^']*)'.*?\\)\\]",
+              "searchFileName": "$1",
+              "searchDirectories": [
+                "var/json_validate"
               ]
             }
           ],
