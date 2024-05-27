@@ -99,3 +99,12 @@
     ]
 }
 ```
+
+## Test
+```bash
+# test all
+npm test
+
+# test only group
+TEST_GREP="sample success test" npm test
+```

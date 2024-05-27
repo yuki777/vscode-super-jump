@@ -1,9 +1,14 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
 import PeekFileDefinitionProvider from '../../PeekFileDefinitionProvider';
+import { suite, test } from 'mocha';
 
 suite('Extension Test Suite', () => {
   vscode.window.showInformationMessage('Start all tests.');
+
+  test('sample success test', () => {
+    assert.deepStrictEqual([], []);
+  });
 
   test('getTargetFiles basics', () => {
     const configs = [
@@ -58,17 +63,25 @@ suite('Extension Test Suite', () => {
     const provider = new PeekFileDefinitionProvider(configs);
     assert(provider instanceof PeekFileDefinitionProvider, 'provider should be an instance of PeekFileDefinitionProvider');
 
+    // Init
+    let testText = "";
+    let cursorPosition = 0;
+    let expectTargetFile: string[] = [];
+    let expectCount = 0;
+    let document = {} as vscode.TextDocument;
+    let targetFiles = [];
+
     // Test 'app'
-    let testText = "$this->resource->get('app://self/Article/Valid?foo=FOO');";
-    let cursorPosition = 25;
-    let expectTargetFile = ["src/Resource/App/Article/Valid.php"];
-    let expectCount = 1;
-    let document = {
+    testText = "$this->resource->get('app://self/Article/Valid?foo=FOO');";
+    cursorPosition = 25;
+    expectTargetFile = ["src/Resource/App/Article/Valid.php"];
+    expectCount = 1;
+    document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
     } as vscode.TextDocument;
 
-    let targetFiles = provider.getTargetFiles(document, new vscode.Position(0, 0));
+    targetFiles = provider.getTargetFiles(document, new vscode.Position(0, 0));
     assert.strictEqual(targetFiles.length, expectCount);
     assert.deepStrictEqual(targetFiles, expectTargetFile);
 
