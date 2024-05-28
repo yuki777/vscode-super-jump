@@ -37,68 +37,7 @@
 - upperCase
 
 ## 設定サンプル
-- settings.json
-```json
-{
-    "vscode-super-jump.configs": [
-            {
-              "targetLanguages": [
-                "php",
-                "twig",
-                "shellscript"
-              ],
-              "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?app:\\/\\/self\\/([^'\"\\{\\?#]*)",
-              "searchFileName": "$2",
-              "searchFileNameConvertRules": [
-                "pascalCase"
-              ],
-              "searchDirectories": [
-                "src/Resource/App"
-              ],
-              "searchFileExtension": ".php"
-            },
-            {
-              "targetLanguages": [
-                "php",
-                "twig",
-                "shellscript"
-              ],
-              "regex": "(get|post|put|delete|resource|uri|ResourceParam|Embed)\\(.*?page:\\/\\/self\\/([^'\"\\{\\?#]*)",
-              "searchFileName": "$2",
-              "searchFileNameConvertRules": [
-                "pascalCase"
-              ],
-              "searchDirectories": [
-                "src/Resource/Page",
-                "src/Resource/Page/Admin",
-                "src/Resource/Page/Cli",
-                "src/Resource/Page/Content"
-              ],
-              "searchFileExtension": ".php"
-            },
-            {
-              "targetLanguages": [
-                "php"
-              ],
-              "regex": "#\\[JsonSchema\\(.*?schema\\s?:\\s?'([^']*)'.*?\\)\\]",
-              "searchFileName": "$1",
-              "searchDirectories": [
-                "var/json_schema"
-              ]
-            },
-            {
-              "targetLanguages": [
-                "php"
-              ],
-              "regex": "#\\[JsonSchema\\(.*?params\\s?:\\s?'([^']*)'.*?\\)\\]",
-              "searchFileName": "$1",
-              "searchDirectories": [
-                "var/json_validate"
-              ]
-            }
-    ]
-}
-```
+- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki/settings.json)
 
 ## Test
 ```bash
