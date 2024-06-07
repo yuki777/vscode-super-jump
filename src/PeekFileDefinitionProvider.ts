@@ -1,6 +1,5 @@
 import * as vscode from 'vscode';
-import * as caseAnything from 'case-anything';
-
+const caseAnything = require("case-anything");
 export default class PeekFileDefinitionProvider implements vscode.DefinitionProvider {
 
   private configs: any[];
