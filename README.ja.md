@@ -1,7 +1,7 @@
-<p align="center"><img src="icon.png" alt="icon"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/yuki777/vscode-super-jump/main/icon.png" alt="icon"></p>
 
 # vscode-super-jump
-- [English](README.md)
+- [English](https://github.com/yuki777/vscode-super-jump/blob/main/README.md)
 - [vscode-super-jump - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=YukiAdachi.vscode-super-jump)
 
 ## 機能
