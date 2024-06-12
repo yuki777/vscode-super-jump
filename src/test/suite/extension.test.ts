@@ -114,4 +114,45 @@ suite('Extension Test Suite', () => {
     assert.strictEqual(targetFiles.length, expectCount);
     assert.deepStrictEqual(targetFiles, expectTargetFile);
   });
+
+  test('getTargetFiles regex capture', () => {
+    const configs = [
+      {
+        "targetLanguages": [
+          "php",
+        ],
+        "regex": "(foo|FOO)(bar|BAR)",
+        "searchFileName": "$1/$2/baz",
+        "searchDirectories": [
+          "path/to/"
+        ],
+        "searchFileExtension": ".txt"
+      }
+    ];
+    const provider = new PeekFileDefinitionProvider(configs);
+    assert(provider instanceof PeekFileDefinitionProvider, 'provider should be an instance of PeekFileDefinitionProvider');
+
+    // Init
+    let testText = "";
+    let cursorPosition = 0;
+    let expectTargetFile: string[] = [];
+    let expectCount = 0;
+    let document = {} as vscode.TextDocument;
+    let targetFiles = [];
+
+    // Test 'app'
+    testText = "foobar";
+    cursorPosition = 2;
+    expectTargetFile = ["path/to/foo/bar/baz.txt"];
+    expectCount = 1;
+    document = {
+      getText: (range: vscode.Range) => testText,
+      getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
+    } as vscode.TextDocument;
+
+    targetFiles = provider.getTargetFiles(document, new vscode.Position(0, 0));
+    assert.strictEqual(targetFiles.length, expectCount);
+    assert.deepStrictEqual(targetFiles, expectTargetFile);
+  });
+
 });
