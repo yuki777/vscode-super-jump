@@ -21,3 +21,12 @@ vsce package
 - https://code.visualstudio.com/api/working-with-extensions/publishing-extension
 - https://dev.azure.com/yuki777/_usersSettings/tokens でPersonal Access Tokenを作成し、
 - https://github.com/yuki777/vscode-super-jump/settings/secrets/actions でVCSE_PATにセットする
+
+## Test
+```bash
+# test all
+npm test
+
+# test only group
+TEST_GREP="sample success test" npm test
+```

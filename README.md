@@ -1,25 +1,28 @@
+<p align="center"><img src="icon.png" alt="icon"></p>
+
 # vscode-super-jump
-[vscode-super-jump - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=YukiAdachi.vscode-super-jump)
+- [日本語](README.ja.md)
+- [vscode-super-jump - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=YukiAdachi.vscode-super-jump)
 
-## 機能
-- ユーザーが設定した特定の言語で、
-- カレントカーソル位置のテキストが、ユーザーが設定した正規表現にマッチした場合、
-- マッチしたテキストをユーザーの設定に従いフォーマットし、
-- フォーマットされたテキスト名のファイルが、ユーザーが設定した特定のディレクトリに存在する場合、ジャンプする
+## Features
+- In a specific language set by the user,
+- If the text at the current cursor position matches a regular expression set by the user,
+- The matched text is formatted according to the user's settings,
+- If a file with the formatted text name exists in a specific directory set by the user, it jumps to that file.
 
-## 設定項目
+## Configuration Items
 
-| 項目                        | 説明                                      |
-|-----------------------------|-------------------------------------------|
-| targetLanguages             | 拡張を使用するプログラミング言語          |
-| regex                       | ジャンプ発動させたいテキストに対応する正規表現 (`"`と`\`はエスケープが必要です) |
-| searchFileName              | マッチした正規表現のキャプチャ変数        |
-| searchFileNameConvertRules  | マッチしたテキストをフォーマットするルール  |
-| searchFileExtension         | 検索対象ファイルの拡張子                 |
-| searchDirectories           | ファイルを検索するディレクトリ            |
+| Item                        | Description                                                                                              |
+|-----------------------------|----------------------------------------------------------------------------------------------------------|
+| targetLanguages             | Programming languages to use the extension with                                                          |
+| regex                       | Regular expression corresponding to the text you want to trigger the jump (escape `"` and `\` as needed) |
+| searchFileName              | File name to search if matched. You can use regular expression capture variables                         |
+| searchFileNameConvertRules  | Rules to format the matched text                                                                         |
+| searchFileExtension         | Extension of the target file                                                                             |
+| searchDirectories           | Directories to search for the file                                                                       |
 
 ## `searchFileNameConvertRules`
-- [case-anything](https://www.npmjs.com/package/case-anything)を使用し、下記をサポートしています
+- Supports the following using [case-anything](https://www.npmjs.com/package/case-anything)
 - adaCase
 - camelCase
 - capitalCase
@@ -36,14 +39,5 @@
 - upperCamelCase
 - upperCase
 
-## 設定サンプル
+## Configuration Sample
 - [settings.json](https://github.com/yuki777/vscode-super-jump/wiki/settings.json)
-
-## Test
-```bash
-# test all
-npm test
-
-# test only group
-TEST_GREP="sample success test" npm test
-```

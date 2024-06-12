@@ -2,12 +2,13 @@
   "name": "vscode-super-jump",
   "displayName": "vscode-super-jump",
   "publisher": "YukiAdachi",
+  "icon": "icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/yuki777/vscode-super-jump"
   },
   "description": "Jump to Definition.",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "engines": {
     "node": "20.*",
     "npm": "10.*",
