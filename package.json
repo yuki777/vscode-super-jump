@@ -31,7 +31,7 @@
           "type": "array",
           "default": [
             {
-              "targetLanguages": [
+              "triggerLanguages": [
                 "php",
                 "twig",
                 "shellscript"
@@ -47,7 +47,7 @@
               "searchFileExtension": ".php"
             },
             {
-              "targetLanguages": [
+              "triggerLanguages": [
                 "php",
                 "twig",
                 "shellscript"
@@ -66,7 +66,7 @@
               "searchFileExtension": ".php"
             },
             {
-              "targetLanguages": [
+              "triggerLanguages": [
                 "php"
               ],
               "regex": "#\\[JsonSchema\\(.*?schema\\s?:\\s?'([^']*)'.*?\\)\\]",
@@ -76,7 +76,7 @@
               ]
             },
             {
-              "targetLanguages": [
+              "triggerLanguages": [
                 "php"
               ],
               "regex": "#\\[JsonSchema\\(.*?params\\s?:\\s?'([^']*)'.*?\\)\\]",

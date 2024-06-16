@@ -4,10 +4,10 @@ import PeekFileDefinitionProvider from "./PeekFileDefinitionProvider";
 export function activate(context: vscode.ExtensionContext) {
   const configs = vscode.workspace.getConfiguration("vscode-super-jump").get<any[]>("configs", []) || [];
 
-  const targetLanguages = configs.reduce((acc: string[], config: any) => {
-    return acc.concat(config.targetLanguages);
+  const triggerLanguages = configs.reduce((acc: string[], config: any) => {
+    return acc.concat(config.triggerLanguages);
   }, []);
-  const uniqueTargetLanguages = Array.from(new Set(targetLanguages));
+  const uniqueTargetLanguages = Array.from(new Set(triggerLanguages));
 
   context.subscriptions.push(
     vscode.languages.registerDefinitionProvider(
