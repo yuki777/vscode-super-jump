@@ -54,7 +54,10 @@ export default class PeekFileDefinitionProvider implements vscode.DefinitionProv
 
       config.searchDirectories.forEach((searchDirectory: string) => {
         const sanitizedSearchDirectory = searchDirectory.replace(/\/$/, '');
-        targetFiles.push(`${sanitizedSearchDirectory}/${processedFileName}${config.searchFileExtension || ''}`);
+
+        const searchFile = `${sanitizedSearchDirectory}/${processedFileName}${config.searchFileExtension || ''}`;
+        const sanitizedSearchFile = searchFile.replace('//', '/');
+        targetFiles.push(sanitizedSearchFile);
       });
     });
 
