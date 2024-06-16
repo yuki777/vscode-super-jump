@@ -84,6 +84,20 @@
               "searchDirectories": [
                 "var/json_validate"
               ]
+            },
+            {
+              "triggerLanguages": [
+                "php"
+              ],
+              "regex": "(route|get|delete|head|options|patch|post|put)\\(['\"]([^'\"]*?)['\"]\\)",
+              "searchFileName": "$2",
+              "searchFileNameConvertRules": [
+                "pascalCase"
+              ],
+              "searchDirectories": [
+                "src/Resource/Page",
+                "src/Resource/Page/Content"
+              ]
             }
           ],
           "items": {
