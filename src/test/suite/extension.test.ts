@@ -157,18 +157,20 @@ suite('Extension Test Suite', () => {
 
   test('getTargetFiles route definitions', () => {
     const configs = [
-      {
-        "triggerLanguages": [
-          "php"
-        ],
-        "regex": "(route|get|delete|head|options|patch|post|put)\\(['\"]([^'\"]*?)['\"]\\)",
-        "searchFileName": "$2",
-        "searchFileNameConvertRules": [
-          "pascalCase"
-        ],
-        "searchDirectories": [
-          "src/Resource/Page"
-        ]
+    {
+      "triggerLanguages": [
+        "php"
+      ],
+      "regex": "(route|get|delete|head|options|patch|post|put)\\(['\"]([^'\"]*?)['\"]",
+      "searchFileName": "$2",
+      "searchFileNameConvertRules": [
+        "pascalCase"
+      ],
+      "searchDirectories": [
+        "src/Resource/Page",
+        "src/Resource/Page/Content"
+      ],
+      "searchFileExtension": ".php",
       }
     ];
     const provider = new PeekFileDefinitionProvider(configs);
@@ -185,8 +187,8 @@ suite('Extension Test Suite', () => {
     // Test case 1
     testText = "$map->get('/category', '/category/path/accessed/by/user')";
     cursorPosition = 10;
-    expectTargetFile = ["src/Resource/Page/Category.php"];
-    expectCount = 1;
+    expectTargetFile = ["src/Resource/Page/Category.php","src/Resource/Page/Content/Category.php" ];
+    expectCount = 2;
     document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
@@ -198,8 +200,8 @@ suite('Extension Test Suite', () => {
     // Test case 2
     testText = "$map->route('/subCategory', '/sub-category/path/accessed/by/user')";
     cursorPosition = 13;
-    expectTargetFile = ["src/Resource/Page/SubCategory.php"];
-    expectCount = 1;
+    expectTargetFile = ["src/Resource/Page/SubCategory.php","src/Resource/Page/Content/SubCategory.php" ];
+    expectCount = 2;
     document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
@@ -211,8 +213,8 @@ suite('Extension Test Suite', () => {
     // Test case 3
     testText = "$map->post('/topics/index', '/topics/path/accessed/by/user')";
     cursorPosition = 11;
-    expectTargetFile = ["src/Resource/Page/Topics/Index.php"];
-    expectCount = 1;
+    expectTargetFile = ["src/Resource/Page/Topics/Index.php","src/Resource/Page/Content/Topics/Index.php" ];
+    expectCount = 2;
     document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
@@ -224,8 +226,8 @@ suite('Extension Test Suite', () => {
     // Test case 4
     testText = "$map->get('/foo-bar', '/category/path/accessed/by/user')";
     cursorPosition = 10;
-    expectTargetFile = ["src/Resource/Page/FooBar.php"];
-    expectCount = 1;
+    expectTargetFile = ["src/Resource/Page/FooBar.php", "src/Resource/Page/Content/FooBar.php"];
+    expectCount = 2;
     document = {
       getText: (range: vscode.Range) => testText,
       getWordRangeAtPosition: (position: vscode.Position, regex: RegExp) => new vscode.Range(position, position.translate(0, cursorPosition))
