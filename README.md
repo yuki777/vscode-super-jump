@@ -14,7 +14,8 @@
 
 | Item                        | Description                                                                                              |
 |-----------------------------|----------------------------------------------------------------------------------------------------------|
-| targetLanguages             | Programming languages to use the extension with                                                          |
+| triggerLanguages            | Programming languages to use the extension with                                                          |
+| triggerFileName             | File name to use the extension with                                                                      |
 | regex                       | Regular expression corresponding to the text you want to trigger the jump (escape `"` and `\` as needed) |
 | searchFileName              | File name to search if matched. You can use regular expression capture variables                         |
 | searchFileNameConvertRules  | Rules to format the matched text                                                                         |

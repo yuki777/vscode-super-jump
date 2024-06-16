@@ -13,7 +13,7 @@ suite('Extension Test Suite', () => {
   test('getTargetFiles basics', () => {
     const configs = [
       {
-        "targetLanguages": [
+        "triggerLanguages": [
           "php",
           "twig",
           "shellscript"
@@ -29,7 +29,7 @@ suite('Extension Test Suite', () => {
         "searchFileExtension": ".php"
       },
       {
-        "targetLanguages": [
+        "triggerLanguages": [
           "php",
           "twig",
           "shellscript"
@@ -48,13 +48,13 @@ suite('Extension Test Suite', () => {
         "searchFileExtension": ".php"
       },
       {
-        "targetLanguages": ["php"],
+        "triggerLanguages": ["php"],
         "regex": "#\\[JsonSchema\\(.*?schema\\s?:\\s?'([^']*)'.*?\\)\\]",
         "searchFileName": "$1",
         "searchDirectories": ["var/json_schema"]
       },
       {
-        "targetLanguages": ["php"],
+        "triggerLanguages": ["php"],
         "regex": "#\\[JsonSchema\\(.*?params\\s?:\\s?'([^']*)'.*?\\)\\]",
         "searchFileName": "$1",
         "searchDirectories": ["var/json_validate"]
@@ -118,7 +118,7 @@ suite('Extension Test Suite', () => {
   test('getTargetFiles regex capture', () => {
     const configs = [
       {
-        "targetLanguages": [
+        "triggerLanguages": [
           "php",
         ],
         "regex": "(foo|FOO)(bar|BAR)",
