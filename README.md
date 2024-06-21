@@ -40,4 +40,4 @@
 - upperCase
 
 ## Configuration Sample
-- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki/settings.json)
+- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki)
