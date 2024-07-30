@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/yuki777/vscode-super-jump/main/icon.png" alt="icon"></p>
 
-# vscode-super-jump
+## vscode-super-jump
 - [日本語(Japanese)](https://github.com/yuki777/vscode-super-jump/blob/main/README.ja.md)
 - [vscode-super-jump - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=YukiAdachi.vscode-super-jump)
 
@@ -21,6 +21,9 @@
 | searchFileExtension         | Extension of the target file                                                                             |
 | searchDirectories           | Directories to search for the file                                                                       |
 
+## Configuration Sample
+- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki)
+
 ## `searchFileNameConvertRules`
 - Supports the following using [case-anything](https://www.npmjs.com/package/case-anything)
 - adaCase
@@ -38,9 +41,6 @@
 - trainCase
 - upperCamelCase
 - upperCase
-
-## Configuration Sample
-- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki)
 
 ## Support
 - It is maintained by `yuki777`
