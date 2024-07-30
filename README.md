@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/yuki777/vscode-super-jump/main/icon.png" alt="icon"></p>
 
-# vscode-super-jump
-- [日本語](https://github.com/yuki777/vscode-super-jump/blob/main/README.ja.md)
+## vscode-super-jump
+- [日本語(Japanese)](https://github.com/yuki777/vscode-super-jump/blob/main/README.ja.md)
 - [vscode-super-jump - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=YukiAdachi.vscode-super-jump)
 
 ## Features
@@ -21,6 +21,9 @@
 | searchFileExtension         | Extension of the target file                                                                             |
 | searchDirectories           | Directories to search for the file                                                                       |
 
+## Configuration Sample
+- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki)
+
 ## `searchFileNameConvertRules`
 - Supports the following using [case-anything](https://www.npmjs.com/package/case-anything)
 - adaCase
@@ -39,5 +42,8 @@
 - upperCamelCase
 - upperCase
 
-## Configuration Sample
-- [settings.json](https://github.com/yuki777/vscode-super-jump/wiki)
+## Support
+- It is maintained by `yuki777`
+- If you wish to make a voluntary donation you can do so via my new Buy Me a Coffee page.
+
+<a href="https://www.buymeacoffee.com/yuki777" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
