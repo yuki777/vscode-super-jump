@@ -41,3 +41,9 @@
 
 ## 設定サンプル
 - [settings.json](https://github.com/yuki777/vscode-super-jump/wiki)
+
+## サポート
+- `yuki777` によってメンテナンスされています
+- Buy Me a Coffeeページから寄付することができます。
+
+<a href="https://www.buymeacoffee.com/yuki777" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
