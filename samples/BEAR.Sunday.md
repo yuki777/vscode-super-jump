@@ -74,6 +74,18 @@
             "searchFileName": "$1",
             "searchFileExtension": ".sql",
         },
+        // #[Query(id:'getFoo') => var/db/sql/getFoo.sql
+        {
+            "triggerLanguages": [
+                "php"
+            ],
+            "regex": "Query\\(id\\s?:\\s?'([^']*)'",
+            "searchDirectories": [
+                "var/db/sql"
+            ],
+            "searchFileName": "$1",
+            "searchFileExtension": ".sql",
+        },
         // $map->get('/category', '/path/to') => src/Resource/Page/Category.php
         {
             "triggerLanguages": [
@@ -153,7 +165,7 @@
 | | Link(rel: 'article', href: '/api/article{?ulid}'] | src/Resource/Page/Admin/Api/Article.php | ❌ |
 | query | WebQuery('foo') | var/web_query.json | ❌ |
 | | #[DbQuery(id:'foo') | var/db/sql/foo.sql | ✅ |
-| | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ❌ |
+| | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Named('getFoo')] | var/db/sql/getFoo.sql | ❌ |
 | | #[Sql('getFoo')] | var/db/sql/getFoo.sql | ❌ |
 | | $this->query['getFoo'] | var/db/sql/getFoo.sql | ❌ |
