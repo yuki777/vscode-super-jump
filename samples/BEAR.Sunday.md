@@ -129,6 +129,24 @@
             ],
             "searchFileExtension": ".php",
         },
+        // Link(rel: 'article', href: '/api/article{?ulid}'] => src/Resource/Page/Admin/Api/Article.php	
+        {
+            "triggerLanguages": [
+                "php"
+            ],
+            "regex": "Link\\(.*?href\\s?:\\s?'([^']*)'",
+            "searchFileName": "$1",
+            "searchFileNameConvertRules": [
+                "pascalCase"
+            ],
+            "searchDirectories": [
+                "src/Resource/Page",
+                "src/Resource/Page/Admin",
+                "src/Resource/Page/Cli",
+                "src/Resource/Page/Content"
+            ],
+            "searchFileExtension": ".php",
+        },
         // #[Named('getFoo')] => var/db/sql/getFoo.sql
         {
             "triggerLanguages": [
@@ -197,8 +215,7 @@
 | | render('/foo/bar') | src/Resource/Page/Foo/Bar.php | ✅ |
 | | $this->router->generate('/foo/bar') | src/Resource/Page/Foo/Bar.php | ✅ |
 | | #[Route('/foo/bar')] | src/Resource/Page/Content/Foo/Bar.php | ✅ |
-| | Auth(redirect: '/my-page/')] | src/Resource/Page/Content/MyPage.php | ❌ |
-| | Link(rel: 'article', href: '/api/article{?ulid}'] | src/Resource/Page/Admin/Api/Article.php | ❌ |
+| | Link(rel: 'article', href: '/api/article{?ulid}'] | src/Resource/Page/Admin/Api/Article.php | ✅ |
 | query | #[WebQuery('foo') | var/web_query.json | ✅ |
 | | #[DbQuery(id:'foo') | var/db/sql/foo.sql | ✅ |
 | | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ✅ |
