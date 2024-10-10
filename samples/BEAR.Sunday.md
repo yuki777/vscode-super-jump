@@ -165,6 +165,18 @@
             ],
             "searchFileExtension": ".php",
         },
+        // $this->query['getFoo'] => var/db/sql/getFoo.sql
+        {
+            "triggerLanguages": [
+                "php"
+            ],
+            "regex": ">query\\[['\"]([^'\"]*?)['\"]",
+            "searchFileName": "$1",
+            "searchDirectories": [
+                "var/db/sql"
+            ],
+            "searchFileExtension": ".sql",
+        },
     ],
 }
 ```
@@ -192,4 +204,4 @@
 | | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Named('getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Sql('getFoo')] | var/db/sql/getFoo.sql | ✅ |
-| | $this->query['getFoo'] | var/db/sql/getFoo.sql | ❌ |
+| | $this->query['getFoo'] | var/db/sql/getFoo.sql | ✅ |
