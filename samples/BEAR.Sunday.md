@@ -129,6 +129,30 @@
             ],
             "searchFileExtension": ".php",
         },
+        // #[Named('getFoo')] => var/db/sql/getFoo.sql
+        {
+            "triggerLanguages": [
+                "php"
+            ],
+            "regex": "Named\\(['\"]([^'\"]*)['\"]",
+            "searchFileName": "$1",
+            "searchDirectories": [
+                "var/db/sql"
+            ],
+            "searchFileExtension": ".sql",
+        },
+        // #[Sql('getFoo')] => var/db/sql/getFoo.sql
+        {
+            "triggerLanguages": [
+                "php"
+            ],
+            "regex": "Sql\\(['\"]([^'\"]*)['\"]",
+            "searchFileName": "$1",
+            "searchDirectories": [
+                "var/db/sql"
+            ],
+            "searchFileExtension": ".sql",
+        },
         // render('/partial/foo/bar') => var/qiq/template/partial/foo/bar.php
         {
             "triggerLanguages": [
@@ -166,6 +190,6 @@
 | query | WebQuery('foo') | var/web_query.json | ❌ |
 | | #[DbQuery(id:'foo') | var/db/sql/foo.sql | ✅ |
 | | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ✅ |
-| | #[Named('getFoo')] | var/db/sql/getFoo.sql | ❌ |
-| | #[Sql('getFoo')] | var/db/sql/getFoo.sql | ❌ |
+| | #[Named('getFoo')] | var/db/sql/getFoo.sql | ✅ |
+| | #[Sql('getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | $this->query['getFoo'] | var/db/sql/getFoo.sql | ❌ |
