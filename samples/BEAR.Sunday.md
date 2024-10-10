@@ -187,7 +187,7 @@
 | | #[Route('/foo/bar')] | src/Resource/Page/Content/Foo/Bar.php | ✅ |
 | | Auth(redirect: '/my-page/')] | src/Resource/Page/Content/MyPage.php | ❌ |
 | | Link(rel: 'article', href: '/api/article{?ulid}'] | src/Resource/Page/Admin/Api/Article.php | ❌ |
-| query | WebQuery('foo') | var/web_query.json | ❌ |
+| query | #[WebQuery('foo') | var/web_query.json | ✅ |
 | | #[DbQuery(id:'foo') | var/db/sql/foo.sql | ✅ |
 | | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Named('getFoo')] | var/db/sql/getFoo.sql | ✅ |
