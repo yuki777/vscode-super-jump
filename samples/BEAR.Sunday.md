@@ -98,7 +98,8 @@
             ],
             "searchDirectories": [
                 "src/Resource/Page",
-                "src/Resource/Page/Content"
+                "src/Resource/Page/Content",
+                "src/Resource/App"
             ],
             "searchFileExtension": ".php",
         },
