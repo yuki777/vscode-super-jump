@@ -67,7 +67,7 @@
             "triggerLanguages": [
                 "php"
             ],
-            "regex": "DbQuery\\(id\\s?:\\s?'([^']*)'",
+            "regex": "DbQuery\\s*\\(\\s*id\\s*:\\s*'([^']+)'",
             "searchDirectories": [
                 "var/db/sql"
             ],
