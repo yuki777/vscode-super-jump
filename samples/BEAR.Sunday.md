@@ -67,7 +67,7 @@
             "triggerLanguages": [
                 "php"
             ],
-            "regex": "DbQuery\\s*\\(\\s*id\\s*:\\s*'([^']+)'",
+            "regex": "DbQuery\\(id\\s?:\\s?'([^']*)'",
             "searchDirectories": [
                 "var/db/sql"
             ],
@@ -219,7 +219,7 @@
 | | Link(rel: 'article', href: '/api/article{?ulid}'] | src/Resource/Page/Admin/Api/Article.php | ✅ |
 | query | #[WebQuery('foo') | var/web_query.json | ✅ |
 | | #[DbQuery(id:'foo') | var/db/sql/foo.sql | ✅ |
-| | #[DbQuery(id:'foo/bar') | var/db/sql/foo/bar.sql | ! |
+| | #[DbQuery(id:'foo/bar') | var/db/sql/foo/bar.sql | ✅ |
 | | #[Query(id: 'getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Named('getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Sql('getFoo')] | var/db/sql/getFoo.sql | ✅ |
