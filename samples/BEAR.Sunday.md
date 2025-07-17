@@ -224,3 +224,12 @@
 | | #[Named('getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | #[Sql('getFoo')] | var/db/sql/getFoo.sql | ✅ |
 | | $this->query['getFoo'] | var/db/sql/getFoo.sql | ✅ |
+
+
+<!--
+
+- vue,tsからバックエンドAPI Pathの `/api/Foo/Bar` で バックエンドPHPソースの/path/to/api/Foo/Bar.php にジャンプしたい
+- .github/*.ymlで、`uses: foo/.github/.github/actions/setup-bar@main` で、ブラウザ起動して https://github.com/foo/.github/tree/main/.github/actions/setup-bar
+- .github/*.ymlで、`uses: foo/.github/.github/actions/setup-bar@piyo` で、ブラウザ起動して https://github.com/foo/.github/tree/piyo/.github/actions/setup-bar
+
+-->
