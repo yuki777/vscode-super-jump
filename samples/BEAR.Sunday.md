@@ -184,6 +184,18 @@
             ],
             "searchFileExtension": ".php",
         },
+        // setLayout('layout/base') => var/qiq/template/layout/base.php
+        {
+            "triggerLanguages": [
+                "php"
+            ],
+            "regex": "setLayout\\s*\\(['\"]([^'\"]*?)['\"]",
+            "searchFileName": "$1",
+            "searchDirectories": [
+                "var/qiq/template"
+            ],
+            "searchFileExtension": ".php",
+        },
         // $this->query['getFoo'] => var/db/sql/getFoo.sql
         {
             "triggerLanguages": [
@@ -217,6 +229,7 @@
 | | $this->router->generate('/foo/bar') | src/Resource/Page/Foo/Bar.php | ✅ |
 | | #[Route('/foo/bar')] | src/Resource/Page/Content/Foo/Bar.php | ✅ |
 | | Link(rel: 'article', href: '/api/article{?ulid}'] | src/Resource/Page/Admin/Api/Article.php | ✅ |
+| qiq | {{ setLayout ('layout/base') }} | var/qiq/template/layout/base.php | ✅ |
 | query | #[WebQuery('foo') | var/web_query.json | ✅ |
 | | #[DbQuery(id:'foo') | var/db/sql/foo.sql | ✅ |
 | | #[DbQuery(id:'foo/bar') | var/db/sql/foo/bar.sql | ✅ |
